@@ -1,25 +1,25 @@
 
 import { Form, Button, FormControl } from 'react-bootstrap';
 import {useContext, useState} from 'react'
-import { EmployeeContext } from '../context/EmployeeContext';
+import { UserContext } from '../context/UserContext';
 
 const AddForm = () => {
 
-    const {addEmployee} = useContext(EmployeeContext)
+    const {addUser} = useContext(UserContext)
 
-    const [newEmployee, setNewEmployee] =useState({
+    const [newUser, setNewUser] =useState({
         name:"", email:"", address:"",phone:""
     });
 
     const onInputChange = (e) => {
-        setNewEmployee({...newEmployee, [e.target.name]: e.target.value})
+        setNewUser({...newUser, [e.target.name]: e.target.value})
     }
 
-    const {name, email, address, phone} = newEmployee;
+    const {name, email, address, phone} = newUser;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addEmployee(name, email, address, phone)
+        addUser(name, email, address, phone)
     }
 
   return (
@@ -67,7 +67,7 @@ const AddForm = () => {
               />
           </Form.Group>
 
-          <Button  variant="success" type="submit" block="true" >Add New Employee</Button>
+          <Button  variant="success" type="submit" block="true" >Add New User</Button>
       </Form>
   )
 };

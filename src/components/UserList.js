@@ -1,12 +1,12 @@
 import { Modal, Button, Alert } from "react-bootstrap";
 import React, { useContext, useEffect, useState } from "react";
-import { EmployeeContext } from "../context/EmployeeContext";
-import Employee from "./Employee";
+import { UserContext } from "../context/UserContext";
+import User from "./User";
 import AddForm from "./AddForm";
 import Pagination from "./Pagination";
 
-const EmployeeList = () => {
-  const { sortedEmployees } = useContext(EmployeeContext);
+const UserList = () => {
+  const { sortedUsers } = useContext(UserContext);
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -17,7 +17,7 @@ const EmployeeList = () => {
  
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [employeesPerPage] = useState(2)
+  const [usersPerPage] = useState(10)
 
   const handleShowAlert = () => {
     setShowAlert(true);
@@ -32,14 +32,14 @@ const EmployeeList = () => {
     return () => {
       handleShowAlert();
     };
-  }, [sortedEmployees]);
+  }, [sortedUsers]);
 
-  const indexOfLastEmployee = currentPage * employeesPerPage;
-  console.log("🚀 ~ file: EmployeeList.js ~ line 38 ~ EmployeeList ~ indexOfLastEmployee", indexOfLastEmployee)
+  const indexOfLastUser = currentPage * usersPerPage;
+ 
   
-  const indexOfFirstEmployee = indexOfLastEmployee - employeesPerPage;
-  const currentEmployees = sortedEmployees.slice(indexOfFirstEmployee, indexOfLastEmployee)
-  const totalPagesNum = Math.ceil(sortedEmployees.length / employeesPerPage);
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = sortedUsers.slice(indexOfFirstUser, indexOfLastUser)
+  const totalPagesNum = Math.ceil(sortedUsers.length / usersPerPage);
 
   return (
     <>
@@ -47,7 +47,7 @@ const EmployeeList = () => {
         <div className="row">
           <div className="col-sm-6">
             <h2>
-              Manage <b>Employees</b>
+              Manage <b>Users</b>
             </h2>
           </div>
           <div className="col-sm-6">
@@ -57,14 +57,14 @@ const EmployeeList = () => {
               data-toggle="modal"
             >
               <i className="material-icons">&#xE147;</i>{" "}
-              <span>Add New Employee</span>
+              <span>Add New User</span>
             </Button>
           </div>
         </div>
       </div>
 
       <Alert show={showAlert} variant="success">
-        Employee List updated successfully!
+        User List updated successfully!
       </Alert>
 
       <table className="table table-striped table-hover">
@@ -78,22 +78,22 @@ const EmployeeList = () => {
           </tr>
         </thead>
         <tbody>
-          {currentEmployees            
-            .map((employee) => (
-              <tr key={employee.id}>
-                <Employee employee={employee} />
+          {currentUsers            
+            .map((user) => (
+              <tr key={user.id}>
+                <User user={user} />
               </tr>
             ))}
         </tbody>
       </table>
       <Pagination pages ={totalPagesNum} 
                   setCurrentPage ={setCurrentPage}
-                  currentEmployees={currentEmployees}
-                  sortedEmployees={sortedEmployees} />
+                  currentUsers={currentUsers}
+                  sortedUsers={sortedUsers} />
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Employee</Modal.Title>
+          <Modal.Title>Add User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
 
@@ -110,4 +110,4 @@ const EmployeeList = () => {
   );
 };
 
-export default EmployeeList;
+export default UserList;

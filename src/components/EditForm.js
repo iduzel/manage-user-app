@@ -1,25 +1,25 @@
 
 import { Form, Button, FormControl } from 'react-bootstrap';
 import {useContext, useState} from 'react'
-import { EmployeeContext } from '../context/EmployeeContext';
+import { UserContext } from '../context/UserContext';
 
 
-const EditForm = ({theEmployee}) => {  
+const EditForm = ({theUser}) => {  
     
-    const id = theEmployee.id
+    const id = theUser.id
 
-    const [name, setName] = useState(theEmployee.name)
-    const [email, setEmail] = useState(theEmployee.email)
-    const [address, setAddress] = useState(theEmployee.address)
-    const [phone, setPhone] = useState(theEmployee.phone)
+    const [name, setName] = useState(theUser.name)
+    const [email, setEmail] = useState(theUser.email)
+    const [address, setAddress] = useState(theUser.address)
+    const [phone, setPhone] = useState(theUser.phone)
 
-    const {updateEmployee} = useContext(EmployeeContext)
+    const {updateUser} = useContext(UserContext)
 
-    const updatedEmployee = {id, name, email, address, phone}
+    const updatedUser = {id, name, email, address, phone}
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        updateEmployee(id, updatedEmployee)
+        updateUser(id, updatedUser)
 
     }
   
@@ -71,7 +71,7 @@ const EditForm = ({theEmployee}) => {
               />
           </Form.Group>
 
-          <Button  variant="success" type="submit" block="true">Edit Employee</Button>
+          <Button  variant="success" type="submit" block="true">Edit User</Button>
       </Form>
   )
 };

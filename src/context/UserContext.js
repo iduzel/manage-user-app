@@ -2,11 +2,11 @@ import { createContext, useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
 
-export const EmployeeContext = createContext()
+export const UserContext = createContext()
 
-const EmployeeContextProvider = (props) => {
+const UserContextProvider = (props) => {
 
-    const [employees, setEmployees] = useState([
+    const [users, setUsers] = useState([
         {id:uuidv4(), name: 'Thomas Hardy', email: 'thomashardy@mail.com', address: '89 Chiaroscuro Rd, Portland, USA', phone: '(171) 555-2222'},
         {id:uuidv4(), name: 'Dominique Perrier', email: 'dominiqueperrier@mail.com', address: 'Obere Str. 57, Berlin, Germany', phone: '(313) 555-5735'},
         {id:uuidv4(), name: 'Maria Anders', email: 'mariaanders@mail.com', address: '25, rue Lauriston, Paris, France', phone: '(503) 555-9931'},
@@ -15,36 +15,36 @@ const EmployeeContextProvider = (props) => {
     ])
 
     useEffect(() => {
-        setEmployees(JSON.parse(localStorage.getItem('employees')))
+        setUsers(JSON.parse(localStorage.getItem('users')))
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('employees', JSON.stringify(employees))
+        localStorage.setItem('users', JSON.stringify(users))
     })
 
    
 
   
 
-    const sortedEmployees = employees.sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1))
+    const sortedUsers = users.sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1))
 
-    const addEmployee = (name, email, address, phone) => {
-        setEmployees([...employees, {id:uuidv4(), name, email, address, phone}])
+    const addUser = (name, email, address, phone) => {
+        setUsers([...users, {id:uuidv4(), name, email, address, phone}])
     }
 
-    const deleteEmployee = (id) => {
-        setEmployees(employees.filter(employee => employee.id !== id))
+    const deleteUser = (id) => {
+        setUsers(users.filter(user => user.id !== id))
     }
 
-    const updateEmployee = (id, updatedEmployee) => {
-        setEmployees(employees.map((employee) => employee.id === id ? updatedEmployee : employee))
+    const updateUser = (id, updatedUser) => {
+        setUsers(users.map((user) => user.id === id ? updatedUser : user))
     }
 
     return (
-        <EmployeeContext.Provider value={{sortedEmployees, addEmployee, deleteEmployee, updateEmployee}}>
+        <UserContext.Provider value={{sortedUsers, addUser, deleteUser, updateUser}}>
             {props.children}
-        </EmployeeContext.Provider>
+        </UserContext.Provider>
     )
 }
 
-export default EmployeeContextProvider;
+export default UserContextProvider;

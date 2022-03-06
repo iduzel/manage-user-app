@@ -2,12 +2,12 @@ import React, {useContext, useEffect, useState} from "react";
 import { Modal, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 
-import {EmployeeContext} from '../context/EmployeeContext'
+import {UserContext} from '../context/UserContext'
 import EditForm from "./EditForm";
 
-function Employee({employee}) {
+function User({user}) {
 
-    const { deleteEmployee, updateEmployee} = useContext(EmployeeContext)
+    const { deleteUser, updateUser} = useContext(UserContext)
 
   const [show, setShow] = useState(false);
 
@@ -16,13 +16,13 @@ function Employee({employee}) {
 
   useEffect(() => {
     handleClose()
-}, [employee])
+}, [user])
   return (
     <>
-      <td>{employee.name}</td>
-      <td>{employee.email}</td>
-      <td>{employee.address}</td>
-      <td>{employee.phone}</td>
+      <td>{user.name}</td>
+      <td>{user.email}</td>
+      <td>{user.address}</td>
+      <td>{user.phone}</td>
       <td>
         <OverlayTrigger
             overlay={
@@ -39,7 +39,7 @@ function Employee({employee}) {
                   Delete
               </Tooltip>
             }> 
-            <button  onClick={() => deleteEmployee(employee.id)} className="btn text-danger btn-act" data-toggle="modal"><i className="material-icons">  &#xE872; </i> </button>
+            <button  onClick={() => deleteUser(user.id)} className="btn text-danger btn-act" data-toggle="modal"><i className="material-icons">  &#xE872; </i> </button>
        </OverlayTrigger>
        
         
@@ -51,10 +51,10 @@ function Employee({employee}) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Employee</Modal.Title>
+          <Modal.Title>Add User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EditForm  theEmployee={employee}/>
+          <EditForm  theUser={user}/>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={handleClose} variant="secondary">
@@ -66,4 +66,4 @@ function Employee({employee}) {
   );
 }
 
-export default Employee;
+export default User;
